@@ -25,8 +25,12 @@ bib_nau_bn_mapping = {**dict1, **dict2}
 with open("/content/drive/MyDrive/Granty, współpraca naukowa/POIR/elb faseta clarin kwds/clarin_keywords_bibliotekanauki - clarin_keywords_bibliotekanauki.csv", mode='r', encoding='utf-8') as file:
     csv_reader = csv.DictReader(file)
     clarin_kwds = [row for row in csv_reader]
+    
 
 class DictionaryFactory:
+    '''
+    factory class for building final dict for ELB facet
+    '''
     @staticmethod
     def remove_empty_values(list_of_dictionaries):
         for dictionary in list_of_dictionaries:
@@ -88,6 +92,8 @@ class DictionaryFactory:
         new_dictionary = DictionaryFactory.create_new_dictionary(updated_list)
         return new_dictionary
 
-
+'''
+code execution and convertion to json format
+'''
 final_dict = DictionaryFactory.complete_process(clarin_kwds, bib_nau_bn_mapping)
 DictionaryFactory.save_dictionary_as_json(final_dict, 'final_dict.json')
